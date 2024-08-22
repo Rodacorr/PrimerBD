@@ -18,12 +18,12 @@ public class Ej2 {
 		
 		public static void main (String [] args) {
 			Ej2 nuevaDB = new Ej2();
-			nuevaDB.CreateConnection();
-			nuevaDB.CreateDatabaseAndTables();
+			nuevaDB.CrearConexion();
+			nuevaDB.CrearBaseDeDatosYTablas();
 			
 		}
 		
-		void CreateDatabaseAndTables() {
+		void CrearBaseDeDatosYTablas() {
 			
 			String createDB = "CREATE DATABASE IF NOT EXISTS Escuela";
 	        String useDB = "USE Escuela";
@@ -69,7 +69,7 @@ public class Ej2 {
 	        }
 	    }
 		
-		void CreateConnection() {
+		void CrearConexion() {
 			String driver = "com.mysql.jdbc.Driver";
 			try {
 				Class.forName(driver);
