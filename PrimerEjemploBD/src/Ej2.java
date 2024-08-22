@@ -16,8 +16,8 @@ import java.util.Properties;
 
 public class Ej2 {
 
-		Connection con = null;
-		Properties prop = null;
+		Connection con;
+		Properties prop;
 		
 		private static final String url = "jdbc:mysql://localhost:3306";
 		private static final String usr = "root";
@@ -61,14 +61,15 @@ public class Ej2 {
 			try {
 				try (
 				Connection tempCon = DriverManager.getConnection(url,usr,pwd)) {
-					Statement stmt = tempCon.createStatement();
+				Statement stmt = tempCon.createStatement();
 					
-					for (String sql : lista) {
-					    stmt.executeUpdate(sql);
-					    System.out.println("Ejecutado: " + sql);
-					}
+				for (String sql : lista) {
+				    stmt.executeUpdate(sql);
+				    System.out.println("Ejecutado: " + sql);
+				}
 					
-					stmt.close();
+				stmt.close();
+				tempCon.close();
 				}
 	        } catch (SQLException e) {
 	            e.printStackTrace();
