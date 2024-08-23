@@ -25,7 +25,7 @@ public class Ej2 {
 		
 		void CrearBaseDeDatosYTablas() {
 			
-			String createDB = "CREATE DATABASE IF NOT EXISTS Escuela";
+			String crearDB = "CREATE DATABASE IF NOT EXISTS Escuela";
 	        String useDB = "USE Escuela";
 			
 	        String cPersona = "CREATE TABLE IF NOT EXISTS Personas (" 
@@ -45,7 +45,7 @@ public class Ej2 {
 		                    + ");";
 					
 			ArrayList<String> lista = new ArrayList<>();
-			lista.add(createDB);
+			lista.add(crearDB);
 	        lista.add(useDB);
 			lista.add(cPersona);
 			lista.add(cMaestra);
