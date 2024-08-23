@@ -17,7 +17,6 @@ public class PruebaAccesoBD
 	{
 		try
 		{
-			
 			String driver = "com.mysql.jdbc.Driver";
 			Class.forName(driver);
 
