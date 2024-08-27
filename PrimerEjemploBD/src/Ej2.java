@@ -15,12 +15,47 @@ public class Ej2 {
 		private static final String url = "jdbc:mysql://localhost:3306";
 		private static final String usr = "root";
 		private static final String pwd = "admin";
+		private static final String urlEscuela = "jdbc:mysql://localhost:3306/Escuela";
 		
 		public static void main (String [] args) {
 			Ej2 nuevaDB = new Ej2();
 			nuevaDB.CrearConexion();
-			nuevaDB.CrearBaseDeDatosYTablas();
+			//nuevaDB.CrearBaseDeDatosYTablas();
+			nuevaDB.UpdateTabla();
 			
+		}
+		
+		void UpdateTabla() {
+			String agregarFKMaestra = "ALTER TABLE Maestra " 
+                    + "ADD CONSTRAINT fk_maestra_persona "
+                    + "FOREIGN KEY (cedula) REFERENCES Personas(cedula);"; 
+			
+			String agregarFKAlumnosCedula = "ALTER TABLE Alumnos " 
+                    + "ADD CONSTRAINT fk_alumnos_persona "
+                    + "FOREIGN KEY (cedula) REFERENCES Personas(cedula);";
+			
+			String agregarFKAlumnosMaestra = "ALTER TABLE Alumnos " 
+                    + "ADD CONSTRAINT fk_alumnos_maestra "
+                    + "FOREIGN KEY (cedulaMaestra) REFERENCES Maestra(cedula);";
+			
+			ArrayList<String> lista = new ArrayList<>();
+		    lista.add(agregarFKMaestra);
+		    lista.add(agregarFKAlumnosCedula);
+		    lista.add(agregarFKAlumnosMaestra);
+		    
+		    try (Connection tempCon = DriverManager.getConnection(urlEscuela, usr, pwd)) {
+		        Statement stmt = tempCon.createStatement();
+
+		        for (String sql : lista) {
+		            stmt.executeUpdate(sql);
+		            System.out.println("FK" + sql + "agregada.");
+		        }
+
+		        stmt.close();
+		        tempCon.close();
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    }
 		}
 		
 		void CrearBaseDeDatosYTablas() {
