@@ -21,7 +21,6 @@ public class StoredProcedures {
     	}catch(SQLException e) {
     		e.printStackTrace();
     	}
-
     	//SP.CrearConexion();    	
     }
     
