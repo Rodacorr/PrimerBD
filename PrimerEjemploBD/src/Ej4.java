@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class Ej4 {
     
-	Connection con;
+	Connection con = null;
 	
     public static void main(String[] args) {
         Ej4 consulta = new Ej4();
