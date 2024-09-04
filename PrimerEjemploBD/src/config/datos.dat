@@ -2,3 +2,4 @@ url=jdbc:mysql://localhost:3306/Prueba
 usr=root
 pwd=admin
 urlEscuela=jdbc:mysql://localhost:3306/Escuela
+urlBD=jdbc:mysql://localhost:3306/
