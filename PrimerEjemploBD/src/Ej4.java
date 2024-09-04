@@ -1,3 +1,6 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -7,15 +10,17 @@ import java.sql.Statement;
 import java.util.Properties;
 
 public class Ej4 {
-    private static final String urlEscuela = "jdbc:mysql://localhost:3306/Escuela";
-    private static final String usr = "root";
-    private static final String pwd = "admin";
     
-    Connection con;
-    
+	Connection con;
+	
     public static void main(String[] args) {
         Ej4 consulta = new Ej4();
-        consulta.CrearConexion();
+        try {
+        	consulta.con = consulta.CrearConexion();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         System.out.println("");
         System.out.println("PARTE A");
@@ -29,7 +34,7 @@ public class Ej4 {
         System.out.println("PARTE C");
         try {
         	consulta.ParteC();
-        } catch (SQLException e) {
+        }catch (SQLException e) {
         	e.printStackTrace();
         }
     }
@@ -44,6 +49,24 @@ public class Ej4 {
                              "LIMIT 1";
         
         try {
+        	Properties prop = new Properties();
+			String nomArch = "src/config/datos.dat";
+			try {
+				prop.load(new FileInputStream(nomArch));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+			String urlEscuela = prop.getProperty("urlEscuela");
+
+			String usr = prop.getProperty("usr");
+			
+			String pwd = prop.getProperty("pwd");
+			
         	Connection con = DriverManager.getConnection(urlEscuela, usr, pwd);
             Statement stmt = con.createStatement();
             ResultSet rs = stmt.executeQuery(consultaSQL);
@@ -72,7 +95,7 @@ public class Ej4 {
         }
     }
   
-    void CrearConexion() {
+    public Connection CrearConexion() {
 		String driver = "com.mysql.jdbc.Driver";
 		try {
 			Class.forName(driver);
@@ -84,20 +107,35 @@ public class Ej4 {
 		System.out.println ("Login en servidor...");
 		
 		try {
+			Properties prop = new Properties();
+			String nomArch = "src/config/datos.dat";
+			try {
+				prop.load(new FileInputStream(nomArch));
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
+			String urlEscuela = prop.getProperty("urlEscuela");
+			String usr = prop.getProperty("usr");
+			String pwd = prop.getProperty("pwd");
+			
 			con = DriverManager.getConnection(urlEscuela, usr, pwd);
-			con.setAutoCommit(false);
 			System.out.println ("Login completo...");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return con;
 	}
     
     void ParteC() throws SQLException {
-        Connection con = null;
 
         try {
-            con = DriverManager.getConnection(urlEscuela, usr, pwd);
             con.setAutoCommit(false);
             
             String SQLstmt = "SELECT cedula FROM Maestra";
