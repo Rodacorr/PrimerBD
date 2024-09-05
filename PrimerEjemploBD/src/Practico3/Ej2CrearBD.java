@@ -36,7 +36,8 @@ public class Ej2CrearBD {
 			e.printStackTrace();
 		}
 		
-		String urlBD = prop.getProperty("urlBD");
+		//String urlBD = prop.getProperty("urlBD");
+		String urlBD = prop.getProperty("urlBedelia");
 	    String usr = prop.getProperty("usr");
 	    String pwd = prop.getProperty("pwd");
 	    
@@ -46,7 +47,8 @@ public class Ej2CrearBD {
 	    	System.out.println ("");
 	    	Ej2CrearBD CrearBD = new Ej2CrearBD();
 	    	
-	    	CrearBD.CrearTablas(con, CrearBD.ConsultaSQL());
+	    	//CrearBD.CrearTablas(con, CrearBD.ConsultaSQL());
+	    	CrearBD.CargarDatos(con, CrearBD.InsertarSQL());
 	    	
 	    	con.close();
 	    }catch(SQLException e) {
@@ -104,7 +106,7 @@ public class Ej2CrearBD {
 		}
 	}
 	
-	void CargarDatos() {
+	public ArrayList<String> InsertarSQL() {
 		/*
 		INSERT INTO Examenes (codigo, materia, periodo) VALUES ('MD2020Dic', 'Matemática discreta', 'Diciembre 2020');
 		INSERT INTO Examenes (codigo, materia, periodo) VALUES ('P12020Dic', 'Programación 1', 'Diciembre 2020');
@@ -112,6 +114,33 @@ public class Ej2CrearBD {
 		INSERT INTO Examenes (codigo, materia, periodo) VALUES ('MD2021Feb', 'Matemática discreta', 'Febrero 2021');
 		INSERT INTO Examenes (codigo, materia, periodo) VALUES ('SO2021Feb', 'Sistemas Operativos', 'Febrero 2021');
 		*/
-		String insert = "";
+		String insertDatos1 = "INSERT INTO examenes (codigo, materia, periodo) VALUES ('MD2020Dic', 'Matemática discreta', 'Diciembre 2020');";
+		String insertDatos2 = "INSERT INTO examenes (codigo, materia, periodo) VALUES ('P12020Dic', 'Programación 1', 'Diciembre 2020');";
+		String insertDatos3 = "INSERT INTO examenes (codigo, materia, periodo) VALUES ('BD2020Dic', 'Bases de datos', 'Diciembre 2020');";
+		String insertDatos4 = "INSERT INTO examenes (codigo, materia, periodo) VALUES ('MD2021Feb', 'Matemática discreta', 'Febrero 2021');";
+		String insertDatos5 = "INSERT INTO examenes (codigo, materia, periodo) VALUES ('SO2021Feb', 'Sistemas Operativos', 'Febrero 2021');";
+		
+		ArrayList<String> lista = new ArrayList<>();
+		lista.add(insertDatos1);
+		lista.add(insertDatos2);
+		lista.add(insertDatos3);
+		lista.add(insertDatos4);
+		lista.add(insertDatos5);
+		
+		return lista;
+	}
+	
+	void CargarDatos(Connection con, ArrayList<String> lista) throws SQLException {
+		try {
+			for(String sql : lista) {
+				PreparedStatement pstmt = con.prepareStatement(sql);
+				pstmt.executeUpdate();
+				System.out.println("Ejecutado: " + sql);
+				pstmt.close();
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
