@@ -50,30 +50,27 @@ public class Ej6DatabaseMetaData {
 		     
 		     System.out.println("Tablas de la BD seleccionada:");
 		     
-		     ResultSet rs2 = Data.getTables(nombre, null, "%", new String[]{"TABLE"});
+		     ResultSet rsTabla = Data.getTables(nombre, null, "%", new String[]{"TABLE"});
 		     
-		     while (rs2.next()) {
-		    	 String nomT = rs2.getString("TABLE_NAME");
-		    	 System.out.println("Tabla -> " + nomT);
+		     while (rsTabla.next()) {
+		    	 String nomTabla = rsTabla.getString("TABLE_NAME");
+		    	 System.out.println("Tabla -> " + nomTabla);
 		    	 
-		    	 ResultSet rsC = Data.getColumns(nombre, null, nomT, "%");
+		    	 ResultSet rsColumna = Data.getColumns(nombre, null, nomTabla, "%");
 		    	 System.out.print("Columnas -> ");
-		    	 while (rsC.next()) {
-	                    String nombreColumna = rsC.getString("COLUMN_NAME");
-	                    String tipoColumna = rsC.getString("TYPE_NAME");
-	                    int tamanoColumna = rsC.getInt("COLUMN_SIZE");
+		    	 while (rsColumna.next()) {
+	                    String nombreColumna = rsColumna.getString("COLUMN_NAME");
+	                    String tipoColumna = rsColumna.getString("TYPE_NAME");
+	                    int tamanoColumna = rsColumna.getInt("COLUMN_SIZE");
 	                    System.out.print(nombreColumna + " (" + tipoColumna + " " + tamanoColumna + ") ");
 	             }
-	             rsC.close();
+		    	 rsColumna.close();
 	             System.out.println();
 	         }
-	         rs2.close();  
+		     rsTabla.close();  
 	    	 
 	     }catch(SQLException e) {
 	    	 e.printStackTrace();
-	     }
-	     
-	     
-	     
+	     }  	     
 	}
 }
