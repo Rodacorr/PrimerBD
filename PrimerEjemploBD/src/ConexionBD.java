@@ -51,7 +51,11 @@ public class ConexionBD {
     }
 
     public void close() throws SQLException {
-        connection.close();
-        System.out.println("Conexión cerrada...");
+        try {
+        	connection.close();
+        	System.out.println("Conexión cerrada...");
+        }catch(SQLException e) {
+        	e.printStackTrace();
+        }
     }
 }
