@@ -14,43 +14,17 @@ import java.util.Properties;
 public class Ej2CrearBD {
 
 	public static void main(String[] args) throws IOException{
-		
-		String driver = "com.mysql.jdbc.Driver";
-		try {
-			Class.forName(driver);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Properties prop = new Properties();
-		String nomArch = "src/config/datos.dat";
-		
-		try {
-			prop.load(new FileInputStream(nomArch));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//String urlBD = prop.getProperty("urlBD");
-		String urlBD = prop.getProperty("urlBedelia");
-	    String usr = prop.getProperty("usr");
-	    String pwd = prop.getProperty("pwd");
-	    
+		ConexionBD conexionBD = new ConexionBD();
 	    try {
-	    	Connection con = DriverManager.getConnection(urlBD,usr,pwd);
-	    	System.out.println ("Login completo...");
-	    	System.out.println ("");
-	    	Ej2CrearBD CrearBD = new Ej2CrearBD();
 	    	
-	    	//CrearBD.CrearTablas(con, CrearBD.ConsultaSQL());
-	    	CrearBD.CargarDatos(con, CrearBD.InsertarSQL());
+	    	Ej2CrearBD crearBD = new Ej2CrearBD();
+	    	// Crear tablas
+            crearBD.CrearTablas(conexionBD.getConnection(), crearBD.ConsultaSQL());
+            
+            // Insertar datos
+            crearBD.CargarDatos(conexionBD.getConnection(), crearBD.InsertarSQL());
 	    	
-	    	con.close();
+            conexionBD.close();
 	    }catch(SQLException e) {
 	    	e.printStackTrace();
 	    }
