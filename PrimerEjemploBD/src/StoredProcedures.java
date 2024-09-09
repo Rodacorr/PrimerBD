@@ -18,6 +18,7 @@ public class StoredProcedures {
     		Connection con = DriverManager.getConnection(urlEscuela, usr, pwd);
     		StoredProcedures SP = new StoredProcedures();
     		SP.BorrarMaestra(con, 12345678);
+    		con.close();
     	}catch(SQLException e) {
     		e.printStackTrace();
     	}
@@ -87,8 +88,10 @@ public class StoredProcedures {
 	           
 	           RSnumber++;
 	           hasRS = stmt.getMoreResults();
+	           rs.close();
 	       }
-	       
+
+           stmt.close();
 	       System.out.println("Procedimiento almacenado BorrarMaestra ejecutado correctamente.");
 	   } catch (SQLException e) {
 	       e.printStackTrace();

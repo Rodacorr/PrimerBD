@@ -11,7 +11,7 @@ import Practico3.Ej2CrearBD;
 public class ConexionBD {
     private Connection connection;
 
-    public ConexionBD() {
+    public void ConexionBD() {
         Conectar();
     }
 
@@ -34,7 +34,7 @@ public class ConexionBD {
             e.printStackTrace();
         }
 
-        String urlBD = prop.getProperty("urlBD");
+        String urlBD = prop.getProperty("urlEscuela");
         String usr = prop.getProperty("usr");
         String pwd = prop.getProperty("pwd");
 
