@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+//USAR VENTANA INGRESO 1 ES MAS LINDA
 public class VentanaIngreso extends JFrame {
     private JComboBox<String> comboExamenes;
     private JTextField txtCedula;
