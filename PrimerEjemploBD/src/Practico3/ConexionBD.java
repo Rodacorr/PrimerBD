@@ -12,17 +12,11 @@ import Practico3.Ej2CrearBD;
 public class ConexionBD {
     private Connection connection;
 
-    public ConexionBD() {
+    public ConexionBD() throws ClassNotFoundException {
         Conectar();
     }
 
-    private void Conectar() {
-        String driver = "com.mysql.jdbc.Driver";
-        try {
-            Class.forName(driver);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+    private void Conectar() throws ClassNotFoundException {
 
         Properties prop = new Properties();
         String nomArch = "src/config/datos.dat";
@@ -38,8 +32,10 @@ public class ConexionBD {
         String urlBD = prop.getProperty("urlBedelia");
         String usr = prop.getProperty("usr");
         String pwd = prop.getProperty("pwd");
+        String driver = prop.getProperty("driver");
 
         try {
+        	Class.forName(driver);
             connection = DriverManager.getConnection(urlBD, usr, pwd);
             System.out.println("Conexión establecida...");
         } catch (SQLException e) {

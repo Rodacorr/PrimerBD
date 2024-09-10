@@ -13,7 +13,7 @@ import java.util.Properties;
 
 public class Ej2CrearBD {
 
-	public static void main(String[] args) throws IOException{
+	public static void main(String[] args) throws IOException, ClassNotFoundException{
 		ConexionBD conexionBD = new ConexionBD();
 	    try {
 	    	

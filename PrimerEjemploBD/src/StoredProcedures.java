@@ -7,14 +7,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class StoredProcedures {
+	
+	//HAY QUE SACAR ESTOS DATOS DEL ARCHIVO DATOS.DAT //MODIFICAR LUEGO
 	private static final String urlEscuela = "jdbc:mysql://localhost:3306/Escuela";
     private static final String usr = "root";
     private static final String pwd = "admin";
+    private static final String driver = "com.mysql.jdbc.Driver";
+    //
     
     Connection con;
     
-    public static void main(String[] arg) throws IOException {
+    public static void main(String[] arg) throws IOException, ClassNotFoundException {
     	try {
+    		Class.forName(driver);
     		Connection con = DriverManager.getConnection(urlEscuela, usr, pwd);
     		StoredProcedures SP = new StoredProcedures();
     		SP.BorrarMaestra(con, 12345678);

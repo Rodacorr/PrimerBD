@@ -10,7 +10,7 @@ import java.io.*;
 
 public class Ej6DatabaseMetaData {
 
-	public static void main (String[] args) throws IOException {
+	public static void main (String[] args) throws IOException, ClassNotFoundException {
 		Properties prop = new Properties();
 		String nomArch = "src/config/datos.dat";
 		
@@ -27,8 +27,10 @@ public class Ej6DatabaseMetaData {
 		 String urlBD = prop.getProperty("urlBD");
 	     String usr = prop.getProperty("usr");
 	     String pwd = prop.getProperty("pwd");
+	     String driver = prop.getProperty("driver");
 	     
 	     try {
+	    	 Class.forName(driver);
 	    	 Connection con = DriverManager.getConnection(urlBD,usr,pwd);
 	    	 System.out.println ("Login completo...");
 	    	 

@@ -87,8 +87,7 @@ public class Ej2 {
 			lista.add(cAlumnos);
 			
 			try {
-				try (
-				Connection tempCon = DriverManager.getConnection(url,usr,pwd)) {
+				Connection tempCon = DriverManager.getConnection(url,usr,pwd);
 				Statement stmt = tempCon.createStatement();
 					
 				for (String sql : lista) {
@@ -98,8 +97,8 @@ public class Ej2 {
 					
 				stmt.close();
 				tempCon.close();
-				}
-	        } catch (SQLException e) {
+				
+			} catch (SQLException e) {
 	            e.printStackTrace();
 	        }
 	    }
