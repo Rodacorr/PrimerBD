@@ -18,10 +18,8 @@ public class Ej2CrearBD {
 	    try {
 	    	
 	    	Ej2CrearBD crearBD = new Ej2CrearBD();
-	    	// Crear tablas
             crearBD.CrearTablas(conexionBD.getConnection(), crearBD.ConsultaSQL());
             
-            // Insertar datos
             crearBD.CargarDatos(conexionBD.getConnection(), crearBD.InsertarSQL());
 	    	
             conexionBD.close();

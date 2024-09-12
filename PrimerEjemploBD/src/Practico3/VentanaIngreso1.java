@@ -13,29 +13,26 @@ public class VentanaIngreso1 extends JFrame {
     private JTextField txtCalificacion;
     private JButton btnIngresar;
     private AccesoBD accesoBD;
-    private JList<String> listExamenes;  // JList para mostrar los exámenes
-    private DefaultListModel<String> listModel; // Modelo de datos para el JList
+    private JList<String> listExamenes;  
+    private DefaultListModel<String> listModel; 
 
     public VentanaIngreso1() throws ClassNotFoundException {
         setTitle("Ingrese resultados de examen");
-        setSize(590, 198); // Tamaño ajustado
+        setSize(590, 198); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null); // Usamos null layout para posicionamiento absoluto
+        getContentPane().setLayout(null); 
 
-        // Etiqueta y JList para seleccionar el examen
         JLabel lblExamen = new JLabel("Por favor, seleccione el examen:");
         lblExamen.setBounds(10, 10, 180, 25);
         getContentPane().add(lblExamen);
 
-        // Modelo de datos para el JList
         listModel = new DefaultListModel<>();
-        // JList para mostrar los exámenes
+
         listExamenes = new JList<>(listModel);
         JScrollPane scrollPane = new JScrollPane(listExamenes);
         scrollPane.setBounds(10, 41, 335, 107);
         getContentPane().add(scrollPane);
 
-        // Etiqueta y campo para la cédula
         JLabel lblCedula = new JLabel("Cédula:");
         lblCedula.setBounds(366, 38, 80, 25);
         getContentPane().add(lblCedula);
@@ -44,7 +41,6 @@ public class VentanaIngreso1 extends JFrame {
         txtCedula.setBounds(445, 36, 119, 29);
         getContentPane().add(txtCedula);
 
-        // Etiqueta y campo para la calificación
         JLabel lblCalificacion = new JLabel("Calificación:");
         lblCalificacion.setBounds(366, 77, 80, 25);
         getContentPane().add(lblCalificacion);
@@ -53,23 +49,20 @@ public class VentanaIngreso1 extends JFrame {
         txtCalificacion.setBounds(445, 75, 119, 29);
         getContentPane().add(txtCalificacion);
 
-        // Botón de ingresar resultado
         btnIngresar = new JButton("Ingresar Resultado");
         btnIngresar.setBounds(385, 123, 160, 25);
         getContentPane().add(btnIngresar);
 
-        // Bordes para los campos de texto, similar a la imagen
         txtCedula.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         txtCalificacion.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         accesoBD = new AccesoBD();
-        cargarExamenes(); // Cargar la lista de exámenes
+        cargarExamenes(); 
         btnIngresar.addActionListener(new IngresarResultadoListener());
 
         setVisible(true);
     }
 
-    // Método para cargar los exámenes en el JList
     private void cargarExamenes() throws ClassNotFoundException {
         try {
             ConexionBD conexionBD = new ConexionBD();
@@ -78,7 +71,7 @@ public class VentanaIngreso1 extends JFrame {
             List<Examen> examenes = accesoBD.listarExamenes(con);
             for (Examen examen : examenes) {
                 String examenStr = examen.getCodigo() + " - " + examen.getMateria() + " - " + examen.getPeriodo();
-                listModel.addElement(examenStr);    // Agregar al modelo de la JList
+                listModel.addElement(examenStr); 
             }
 
             conexionBD.close();
@@ -87,7 +80,6 @@ public class VentanaIngreso1 extends JFrame {
         }
     }
 
-    // Listener para el botón de ingresar resultado
     private class IngresarResultadoListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -108,7 +100,7 @@ public class VentanaIngreso1 extends JFrame {
                     return;
                 }
 
-                String examenSeleccionado = listExamenes.getSelectedValue();  // Obtener el examen seleccionado del JList
+                String examenSeleccionado = listExamenes.getSelectedValue();
                 if (examenSeleccionado == null) {
                     JOptionPane.showMessageDialog(VentanaIngreso1.this, "Debe seleccionar un examen.");
                     return;
@@ -131,14 +123,16 @@ public class VentanaIngreso1 extends JFrame {
         }
     }
 
-    // Método main para ejecutar la ventana
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            try {
-                new VentanaIngreso1();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        });
-    }
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaIngreso1 window = new VentanaIngreso1();
+					window.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 }

@@ -12,4 +12,9 @@ public class Consultas {
 						"VALUES (?,?,?);";
 		return insertar;
 	}
+	
+	public String listarResultados() {
+		String consulta = "SELECT * FROM bedelia.examenes e;";
+		return consulta;
+	}
 }

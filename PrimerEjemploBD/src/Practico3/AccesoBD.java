@@ -74,6 +74,8 @@ public class AccesoBD {
 				Examen examen = new Examen(codigo, materia, periodo);
 				examenes.add(examen);
 			}
+			rs.close();
+			stmt.close();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -84,11 +86,12 @@ public class AccesoBD {
 		String insertar = consultas.insertarResultado();
 		
 		try {
-			PreparedStatement stmt = con.prepareStatement(insertar);
-			stmt.setInt(1, resu.getCedula());
-			stmt.setString(2, resu.getCodigo());
-			stmt.setInt(3, resu.getCalificacion());
-			stmt.executeUpdate();
+			PreparedStatement pstmt = con.prepareStatement(insertar);
+			pstmt.setInt(1, resu.getCedula());
+			pstmt.setString(2, resu.getCodigo());
+			pstmt.setInt(3, resu.getCalificacion());
+			pstmt.executeUpdate();
+			pstmt.close();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
