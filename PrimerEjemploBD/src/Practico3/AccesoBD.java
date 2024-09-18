@@ -96,4 +96,29 @@ public class AccesoBD {
 			e.printStackTrace();
 		}
 	}
+	
+	public List <Resultado> listarResultados (Connection con, int cedula){
+		List<Resultado> resultados = new ArrayList<>();
+		String consulta = consultas.listarResultados();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(consulta);
+			pstmt.setInt(1, cedula);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				int cedula1 = rs.getInt("cedula");
+				String codigo = rs.getString("codigo");
+				int calificacion = rs.getInt("calificacion");
+				
+				Resultado resu = new Resultado(cedula1, codigo, calificacion);
+				resultados.add(resu);
+			}
+			rs.close();
+			pstmt.close();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return resultados;
+	}
 }

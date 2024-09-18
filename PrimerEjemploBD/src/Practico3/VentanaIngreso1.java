@@ -73,7 +73,17 @@ public class VentanaIngreso1 extends JFrame {
                 String examenStr = examen.getCodigo() + " - " + examen.getMateria() + " - " + examen.getPeriodo();
                 listModel.addElement(examenStr); 
             }
-
+            
+            //Probando listarResutlados
+            /*
+            AccesoBD acc= new AccesoBD();
+            List<Resultado> resu = acc.listarResultados(con, 1234567);
+            for(Resultado resultados : resu) {
+            	System.out.println(resultados.getCedula());
+            	System.out.println(resultados.getCodigo());
+            	System.out.println(resultados.getCalificacion());
+            }
+            */
             conexionBD.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -112,7 +122,7 @@ public class VentanaIngreso1 extends JFrame {
 
                 ConexionBD conexionBD = new ConexionBD();
                 Connection con = conexionBD.getConnection();
-
+                
                 accesoBD.ingresarResultado(con, resultado);
 
                 JOptionPane.showMessageDialog(VentanaIngreso1.this, "Resultado ingresado exitosamente.");

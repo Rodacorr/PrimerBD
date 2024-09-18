@@ -14,7 +14,7 @@ public class Consultas {
 	}
 	
 	public String listarResultados() {
-		String consulta = "SELECT * FROM bedelia.examenes e;";
+		String consulta = "SELECT * FROM bedelia.resultados r WHERE r.cedula = ?;";
 		return consulta;
 	}
 }
